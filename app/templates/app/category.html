@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}
+Ecommerce Category
+{% endblock title %}
+
+
+{% block content %}
+
+<h1>Category : {{id}}</h1>
+
+<h2>Products</h2>
+<ul>
+    {% for product in products %}
+    <li>
+        <a href="{% url 'product' product.id %}">
+            <img src="{{product.image.url}}" width="150px" height="150px" />
+            <p>{{product.name}}</p>
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}

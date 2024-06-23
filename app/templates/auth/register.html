@@ -1,0 +1,78 @@
+{% extends "auth/authbase.html" %} {% load static %} {% block content %}
+
+<div class="container">
+  <h1 class="text-center">Register</h1>
+  <form method="post" action="{% url 'register' %}" novalidate class="">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="id_username">Username</label>
+      <input
+        type="text"
+        name="username"
+        id="id_username"
+        class="form-control"
+        value="{{ form.username.value|default_if_none:'' }}"
+      />
+      {% if form.username.errors %}
+      <div class="error-message">{{ form.username.errors }}</div>
+      {% endif %}
+    </div>
+    <div class="form-group">
+      <label for="id_email">Email</label>
+      <input
+        type="email"
+        name="email"
+        id="id_email"
+        class="form-control"
+        value="{{ form.email.value|default_if_none:'' }}"
+      />
+      {% if form.email.errors %}
+      <div class="error-message">{{ form.email.errors }}</div>
+      {% endif %}
+    </div>
+    <div class="form-group">
+      <label for="password1">Password</label>
+      <input
+        type="password"
+        name="password1"
+        id="password1"
+        class="form-control"
+      />
+      {% if form.password1.errors %}
+      <div class="error-message">{{ form.password1.errors }}</div>
+      {% endif %}
+    </div>
+    <div class="form-group">
+      <label for="password2">Confirm Password</label>
+      <input
+        type="password"
+        name="password2"
+        id="password2"
+        class="form-control"
+      />
+      {% if form.password2.errors %}
+      <div class="error-message">{{ form.password2.errors }}</div>
+      {% endif %}
+    </div>
+
+    <div class="flex-items-center space-between">
+      {% comment %} <small
+        ><a href="{% url 'password_reset' %}" class="primary-color"
+          >Forgot Password ?
+        </a></small
+      > {% endcomment %}
+      <small
+        ><a href="{% url 'index' %}" class="primary-color">Guest User</a></small
+      >
+    </div>
+    <button type="submit" class="default-btn my-8">Register</button>
+    <div class="text-center font-bold">
+      <small
+        >Existing User ?
+        <a href="{% url 'login' %}" class="primary-color">Login Now</a></small
+      >
+    </div>
+  </form>
+</div>
+
+{% endblock content %}

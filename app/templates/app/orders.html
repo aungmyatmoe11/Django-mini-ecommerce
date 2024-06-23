@@ -1,0 +1,66 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<section class="w-full main-container">
+  <h1>Your Orders</h1>
+  {% if orders %}
+  <ul class="order-list mt-12">
+    {% for order in orders %}
+    <li class="order-item">
+      <div class="flex-col">
+        <div class="order-head grid-two-container space-between font-bold">
+          <div>
+            <p>Order Tracking Code : <span class="primary-color">{{order.tracking_code}}</span></p>
+            <p>Order Status : <span class="primary-color">{{order.status}}</span></p>
+            <p>Order Date : <span class="primary-color">{{order.ordered_at}}</span></p>
+            <p>Customer Information : 
+                <span class="primary-color">
+                    {{order.full_name}} | {{order.address}} | {{order.city}}| {{order.country}} ({{order.postcode}})
+                </span>
+            </p>
+          </div>
+          <div class="order-detail-right">
+            <p class="">Total Quantity : <span class="primary-color">{{order.total_quantity}}</span></p>
+            <p class="">Shipping Fee : <span class="primary-color">${{order.shipping_fee}}</span></p>
+            <p class="">Total Amount : <span class="primary-color">${{order.total_amount}}</span></p>
+          </div>
+        </div>
+        <div class="order-body pt-12">
+          {% for order_product in order.order_products.all %}
+          <div class="cart border-t-dash-gray">
+            <div class="cart-left">
+              <img
+                src="{{ order_product.product.image.url }}"
+                alt="{{ order_product.product.name }}"
+                class=""
+              />
+            </div>
+            <div class="cart-right">
+              <div class="product-d">
+                <p class="font-bold">{{order_product.product.name}}</p>
+                <p>
+                  <span 
+                    >{{order_product.quantity}}</span
+                  >
+                  x
+                  <span class="primary-color font-bold"
+                    >${{order_product.price}}</span
+                  >
+                </p>
+              </div>
+              <p><span class="font-bold primary-color">${{order_product.total_price}}</span></p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <div class="no-orders">
+    <p>No orders found.</p>
+  </div>
+  {% endif %}
+</section>
+
+{% endblock content %}

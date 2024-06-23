@@ -1,0 +1,105 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<section class="main-container grid-container">
+  <div class="col-span-2">
+    <h3 class="py-12">YOUR SHOPPING CART</h3>
+    <div>
+      {% for cart in carts %}
+      <div class="cart border-b-gray" id="{{cart.product.id}}_cart">
+        <div class="cart-left">
+          <img
+            src="{{ cart.product.image.url }}"
+            alt="{{ cart.product.name }}"
+            class=""
+          />
+        </div>
+        <div class="cart-right">
+          <div class="product-d">
+            <p>{{cart.product.name}}</p>
+            <p>
+              <span id="{{cart.product.id}}_cart_quantity"
+                >{{cart.quantity}}</span
+              >
+              x
+              <span class="primary-color font-bold"
+                >${{cart.product.price}}</span
+              >
+            </p>
+          </div>
+          <div class="cart-input-section">
+            <div class="flex-items-center gap-8">
+              <button
+                type="button"
+                class="quantity-btn"
+                onclick="changeQuantity('{{cart.product.id}}','minus')"
+              >
+                -
+              </button>
+              <input
+                type="number"
+                name="quantity"
+                class="quantity-input"
+                id="{{cart.product.id}}_input"
+                value="{{cart.quantity}}"
+              />
+              <button
+                type="button"
+                class="quantity-btn"
+                onclick="changeQuantity('{{cart.product.id}}','plus')"
+              >
+                +
+              </button>
+            </div>
+          </div>
+          <div class="cart-cancel" pid="{{cart.product.id}}">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M8.4 17L7 15.6l3.6-3.6L7 8.425l1.4-1.4l3.6 3.6l3.575-3.6l1.4 1.4l-3.6 3.575l3.6 3.6l-1.4 1.4L12 13.4z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-span-1">
+    <div class="cart-checkout">
+      <h3 class="order-summary">Order summary</h3>
+
+      <div class="flex-items-center space-between py-12">
+        <p>Subtotal</p>
+        <p>$<span id="sub_total">{{products_amount}}</span></p>
+      </div>
+
+      <div class="flex-items-center space-between py-12">
+        <p>Shipping Fee</p>
+        <p>$<span id="shipping_fee">{{shipping_fee}}</span></p>
+      </div>
+
+      <hr />
+
+      <div class="flex-items-center space-between py-12">
+        <p>Total Amount</p>
+        <p class="font-bold primary-color">
+          $<span id="total_amount">{{total_amount}}</span>
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <a href="{% url 'checkout' %}" class="default-btn mt-12">Checkout</a>
+    </div>
+  </div>
+</section>
+
+{% endblock content %} {% block js %}
+<script src="{% static 'js/add_to_cart.js' %}" type="text/javascript"></script>
+
+{% endblock js %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="main-container product-detail-container">
+    <div class="w-full">
+        <img src="{{product.image.url}}" class="w-full" alt="{{product.name}}"  />
+    </div>
+    <div class="w-full product-right">
+        <div>
+            <h3 class="product-name">{{product.name}}</h3>
+            <a class="category-name" href="{% url 'category' product.category.id %}">{{product.category.name}}</a>
+            {% comment %} <p class="stock">Stock = {{product.stock}}</p> {% endcomment %}
+            <p class="price">$<span class="primary-color">{{product.price}}</span></p>
+            <p class="description">{{product.description}}</p>
+            {% comment %} <form action="{% url 'add_to_cart' %}?next={{ request.path|urlencode}}" class="" method="POST"> {% endcomment %}
+            <form action="{% url 'add_to_cart' %}?next={{ request.path|urlencode}}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="product_id" id="product_id" value={{product.id}} />
+                <p class="quantity">Quantity</p>
+                <div class="flex-items-center gap-8">
+                    <button type="button" class="quantity-btn" onclick="changeQuantity('-')">-</button>
+                    <input type="number" name="quantity" class="quantity-input" id="quantity-input" value=1 />
+                    <button type="button" class="quantity-btn" onclick="changeQuantity('+')">+</button>
+                </div>
+
+                <button type="submit" class="add-to-cart-button">Add to Cart</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock content %}
+
+{% block js %}
+{% comment %} <script src="{% static 'js/product_detail.js' %}" type="text/javascript"></script> {% endcomment %}
+<script>
+    const quantityInput = document.getElementById('quantity-input')
+    function changeQuantity(state){
+        parseQuantity = parseInt(quantityInput.value)
+        if(state == '+'){
+            quantityInput.value = parseQuantity + 1
+        }else{
+            if(quantityInput.value == 1) return
+            quantityInput.value = parseQuantity - 1
+        }
+    }
+
+</script>
+
+{% endblock js %}

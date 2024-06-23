@@ -1,0 +1,123 @@
+body {
+  font-family: "Comic Sans MS", cursive;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #fafafa; /* Warna latar belakang abu-abu muda */
+  color: #333;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+:root {
+  --primary-color: #075985;
+  --black-color: #060709;
+  --white-color: #fff;
+
+  --max-width: 1080px;
+  --h1-font: 5.5rem;
+  --h2-font: 3.5rem;
+  --p-font: 1rem;
+  --gray-100: #f3f4f5;
+  --gray-300: #ababab;
+
+  --small-border-radius: 6px;
+  --medium-border-radius: 12px;
+  --large-border-radius: 20px;
+  --grid-gap: 1.5rem;
+
+  --shadow-small: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-large: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+form {
+  padding-top: 16px;
+}
+
+.primary-color{
+    color: var(--primary-color);
+}
+
+.text-center{
+    text-align: center;
+}
+
+.flex-items-center{
+    display: flex;
+    align-items: center;
+}
+
+.space-between{
+    justify-content: space-between;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  background: white;
+  border-radius: var(--large-border-radius);
+  box-shadow: var(--shadow-large);
+  padding: 40px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.error-message {
+  color: red;
+  font-size: 0.875em;
+}
+
+.font-bold{
+    font-weight: 700;
+}
+
+.my-8{
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.default-btn {
+    /* padding: 20px; */
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border-radius: var(--small-border-radius);
+    transition: all 0.5s ease;
+    border: 1px solid var(--primary-color);
+    width: 100%;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .default-btn:hover {
+    background-color: var(--white-color);
+    color: var(--primary-color);
+  }

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}
+Ecommerce HOME
+{% endblock title %}
+
+
+{% block content %}
+
+<section class="main-container">
+    <h1 class="text-center">All Products</h1>
+    <div class="py-20">
+    {% for category in categories %}
+        <div class="py-20">
+            <h3>{{ category.name }}</h2>
+                <div class="product-container">
+                    {% for product in category.product_set.all %}
+                    <div class="row">
+                        <a href="{% url 'product' product.id  %}">
+                            <div class="row-img">
+                                {% if product.image %}
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                                {% else %}
+                                    <img src="https://via.placeholder.com/150" alt="{{ product.name }}">
+                                {% endif %}
+                            </div>
+                        </a>
+                        <h3>{{product.name}}</h3>
+                        <div class="row-in">
+                          <form action="{% url 'add_to_cart' %}?next={{ request.path|urlencode}}" method="POST" class="add-to-cart" pid={{product.id}}>
+                            {% csrf_token %}
+                            <input type="hidden" name="product_id" id="product_id" value={{product.id}} />
+                            <button type="submit" class="row-left">
+                              <div class="" 
+                                >Add to cart
+                              </div>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M7 22q-.825 0-1.412-.587T5 20t.588-1.412T7 18t1.413.588T9 20t-.587 1.413T7 22m10 0q-.825 0-1.412-.587T15 20t.588-1.412T17 18t1.413.588T19 20t-.587 1.413T17 22M5.2 4h14.75q.575 0 .875.513t.025 1.037l-3.55 6.4q-.275.5-.737.775T15.55 13H8.1L7 15h12v2H7q-1.125 0-1.7-.987t-.05-1.963L6.6 11.6L3 4H1V2h3.25z"/></svg>
+                          </button>
+                          </form>
+            
+                          <div class="row-right">
+                            <h6>${{product.price}}</h6>
+                          </div>
+                        </div>
+
+                    </div>
+                    {% endfor %}
+                </div>
+        </div>
+    
+    {% endfor %}
+    </div>
+
+</section>
+
+{% endblock content %}
